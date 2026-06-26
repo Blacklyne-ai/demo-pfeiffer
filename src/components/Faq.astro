@@ -40,9 +40,11 @@ const json = schema
 
 <style>
   .faq-item > summary::-webkit-details-marker { display: none; }
-  .faq-q { transition: background 0.2s ease; }
-  .faq-item:hover > .faq-q, .faq-item[open] > .faq-q { background: rgb(var(--rgb-cream) / 0.6); }
-  .faq-item[open] .faq-ico { transform: rotate(135deg); background: rgb(var(--rgb-crimson) / 0.08); border-color: rgb(var(--rgb-crimson) / 0.25); }
+  /* Tönung auf das GANZE Item (Frage + Antwort) → eine Einheit, kein Doppel-Kasten */
+  .faq-item { transition: background 0.2s ease; }
+  .faq-item:hover { background: rgb(var(--rgb-cream) / 0.45); }
+  .faq-item[open] { background: rgb(var(--rgb-cream) / 0.55); }
+  .faq-item[open] .faq-ico { transform: rotate(135deg); background: rgb(var(--rgb-crimson) / 0.1); border-color: rgb(var(--rgb-crimson) / 0.3); }
   /* JS-animierte Höhe; ohne JS bleibt natives details-Verhalten (auf/zu) erhalten */
   .js .faq-a-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s cubic-bezier(0.4,0,0.2,1); }
   .js .faq-item[open] .faq-a-wrap { grid-template-rows: 1fr; }
