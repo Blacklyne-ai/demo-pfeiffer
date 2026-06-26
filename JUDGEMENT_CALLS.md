@@ -39,9 +39,11 @@ Diese Datei dokumentiert getroffene Entscheidungen und offene Punkte für den Op
 - [ ] **Team-Mitglieder/Namen** — Bestandsseite nennt nur „ein kompetentes Team" ohne Namen.
       Aktuell ist nur **Silke Pfeiffer-Flößer** mit Foto vertreten (`src/data/site.ts → team`).
       Weitere Personen + Fotos nachreichen.
-- [ ] **Echte, hochauflösende Praxis-/Teamfotos.** Verwendet wurden die Original-Fotos der
-      Bestandsseite (Behandlungsräume, Anwendungen, Silke-Portrait); einige sind niedrig
-      aufgelöst („…-klein.jpg", Silke 200×300). Für Print-/Retina-Schärfe HiRes nachreichen.
+- [ ] **Echte, hochauflösende Praxis-/Teamfotos.** Die Altseite bietet KEINE höher aufgelösten
+      Originale (Räume nur „…-klein.jpg" 252×336, Silke 200×300; geprüft). Wir nutzen das jeweils
+      beste Quellbild (Silke aus dem 1037er Header-Composite) und schärfen alles per
+      Lanczos-Upscale + Unsharp-Mask auf Anzeigegröße — so scharf wie aus den Quellen möglich.
+      Für echte Print-/Retina-Schärfe bitte HiRes-Originale oder ein neues Foto-Shooting liefern.
 - [ ] **Move One Station** — Start „ab Mai 2026" aktuell halten; Inhalte ergänzen, sobald bekannt.
 - [ ] **Stellen-Details** (Karriere) — Aufgaben/Profil/Benefits wurden aus dem verbatim
       Jobtext gegliedert; „überdurchschnittliche Bezahlung" ohne Betrag → kein `baseSalary`
