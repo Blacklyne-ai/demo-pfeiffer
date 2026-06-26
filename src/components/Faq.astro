@@ -1,0 +1,69 @@
+---
+// Barrierearmes FAQ-Accordion (native <details>/<summary> → funktioniert ohne JS).
+// Sanftes Auf-/Zuklappen per JS-Höhenanimation; respektiert prefers-reduced-motion.
+// Optional: FAQPage-JSON-LD (set schema=true) — nur belegte Inhalte, nichts erfunden.
+import Icon from './Icon.astro';
+export interface FaqItem { q: string; a: string[] }
+interface Props { items: FaqItem[]; schema?: boolean; openFirst?: boolean }
+const { items, schema = false, openFirst = true } = Astro.props;
+
+const json = schema
+  ? JSON.stringify({
+      '@context': 'https://schema.org',
+      '@type': 'FAQPage',
+      mainEntity: items.map((it) => ({
+        '@type': 'Question',
+        name: it.q,
+        acceptedAnswer: { '@type': 'Answer', text: it.a.join(' ') },
+      })),
+    })
+  : null;
+---
+<div class="faq divide-y divide-line rounded-2xl border border-line bg-white overflow-hidden">
+  {items.map((it, i) => (
+    <details class="faq-item group" open={openFirst && i === 0}>
+      <summary class="faq-q flex items-center justify-between gap-4 cursor-pointer list-none px-5 md:px-7 py-5 select-none">
+        <span class="font-display text-ink text-[1.12rem] md:text-[1.22rem] leading-snug pr-2" style="font-variation-settings:'opsz' 40;">{it.q}</span>
+        <span class="faq-ico flex-shrink-0 w-9 h-9 rounded-full grid place-items-center border border-line text-crimson-deep transition-transform duration-300">
+          <Icon name="Plus" size={18} strokeWidth={2.4} />
+        </span>
+      </summary>
+      <div class="faq-a-wrap">
+        <div class="faq-a px-5 md:px-7 pb-6 pt-0 space-y-3">
+          {it.a.map((p) => <p class="text-[1.02rem] leading-[1.72] text-muted text-pretty">{p}</p>)}
+        </div>
+      </div>
+    </details>
+  ))}
+</div>
+{json && <script type="application/ld+json" set:html={json} />}
+
+<style>
+  .faq-item > summary::-webkit-details-marker { display: none; }
+  .faq-q { transition: background 0.2s ease; }
+  .faq-item:hover > .faq-q, .faq-item[open] > .faq-q { background: rgb(var(--rgb-cream) / 0.6); }
+  .faq-item[open] .faq-ico { transform: rotate(135deg); background: rgb(var(--rgb-crimson) / 0.08); border-color: rgb(var(--rgb-crimson) / 0.25); }
+  /* JS-animierte Höhe; ohne JS bleibt natives details-Verhalten (auf/zu) erhalten */
+  .js .faq-a-wrap { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.32s cubic-bezier(0.4,0,0.2,1); }
+  .js .faq-item[open] .faq-a-wrap { grid-template-rows: 1fr; }
+  .js .faq-a-wrap > .faq-a { overflow: hidden; }
+  @media (prefers-reduced-motion: reduce) { .js .faq-a-wrap { transition: none; } }
+</style>
+
+<script>
+  // Akkordeon-Verhalten: beim Öffnen sanft animieren; offen-Status sauber halten.
+  // Native <details> toggelt selbst; wir verzögern nur das Schließen für die Animation.
+  function initFaq() {
+    document.querySelectorAll<HTMLDetailsElement>('.faq-item').forEach((d) => {
+      if ((d as any)._faqInit) return; (d as any)._faqInit = true;
+      const summary = d.querySelector('summary');
+      summary?.addEventListener('click', (e) => {
+        const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (reduce || !d.open) return; // Öffnen: nativ (CSS-Grid-Animation greift)
+        e.preventDefault();            // Schließen: erst Animation, dann open=false
+        d.removeAttribute('open');
+      });
+    });
+  }
+  document.addEventListener('astro:page-load', initFaq);
+</script>

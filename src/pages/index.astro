@@ -170,24 +170,30 @@ import { welcome, physioServices, wellnessServices, hpPhysio, job } from '../dat
     </div>
   </section>
 
-  <!-- ════════ JOBANGEBOT (Recruiting) ════════ -->
+  <!-- ════════ JOBANGEBOT (Recruiting — Highlight) ════════ -->
   <section class="sec bg-white border-y border-line">
     <div class="container-px">
-      <div class="panel p-8 md:p-12 fade-in">
-        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
-          <div class="lg:col-span-8">
-            <span class="pill pill-crimson mb-5"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Wir stellen ein</span>
-            <h2 class="h-xl text-balance mb-4">Verstärkung gesucht — {job.title}</h2>
-            <p class="text-muted text-[1.02rem] leading-relaxed text-pretty mb-7">{job.intro}</p>
-            <ul class="flex flex-wrap gap-2.5">
-              {['Voll- oder Teilzeit', '4-Tage-Woche möglich', 'freitags frei', 'überdurchschnittliche Bezahlung', 'nettes Team'].map((t) => (
-                <li class="pill pill-sage"><Icon name="Check" size={13} strokeWidth={2.6} /> {t}</li>
-              ))}
-            </ul>
-          </div>
-          <div class="lg:col-span-4 flex flex-col gap-3 lg:items-end">
-            <a href="/karriere" class="btn btn-crimson btn-lg w-full sm:w-auto">Zur Stelle<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
-            <a href={careerMail} class="btn btn-outline w-full sm:w-auto"><Icon name="Mail" size={16} strokeWidth={2.2} /> Direkt bewerben</a>
+      <div class="relative rounded-[28px] overflow-hidden border border-line shadow-lift grid lg:grid-cols-2 fade-in">
+        <!-- Foto -->
+        <div class="relative min-h-[280px] lg:min-h-[480px] bg-sand">
+          <img src="/images/raeume/raum-04.jpg" alt="Arbeitsplatz in der Physio Praxis Pfeiffer — entspannte Wohlfühlatmosphäre" width="600" height="800" loading="lazy" class="absolute inset-0 w-full h-full object-cover" />
+          <span class="absolute top-5 left-5 inline-flex items-center gap-2 rounded-pill bg-white/95 backdrop-blur px-4 py-2 text-[0.8rem] font-semibold text-crimson-ink shadow-soft">
+            <span class="dot dot-green"></span> Wir stellen ein
+          </span>
+        </div>
+        <!-- Inhalt -->
+        <div class="bg-cream p-8 md:p-12 lg:p-14 flex flex-col justify-center">
+          <span class="eyebrow mb-5">Karriere bei Pfeiffer</span>
+          <h2 class="display-2 text-balance mb-5">Komm in unser <em>Team.</em></h2>
+          <p class="text-muted text-[1.05rem] leading-relaxed text-pretty mb-7">{job.intro}</p>
+          <ul class="flex flex-wrap gap-2.5 mb-9">
+            {['Voll- oder Teilzeit', '4-Tage-Woche', 'freitags frei', 'überdurchschnittlich', 'nettes Team'].map((t) => (
+              <li class="pill pill-crimson"><Icon name="Check" size={13} strokeWidth={2.6} /> {t}</li>
+            ))}
+          </ul>
+          <div class="flex flex-col sm:flex-row gap-3">
+            <a href="/karriere" class="btn btn-crimson btn-lg">Zur Stelle<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+            <a href={careerMail} class="btn btn-outline btn-lg"><Icon name="Mail" size={16} strokeWidth={2.2} /> Direkt bewerben</a>
           </div>
         </div>
       </div>

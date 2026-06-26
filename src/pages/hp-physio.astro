@@ -2,9 +2,13 @@
 import Layout from '../layouts/Layout.astro';
 import PageHero from '../components/PageHero.astro';
 import CtaBand from '../components/CtaBand.astro';
+import Faq from '../components/Faq.astro';
 import Icon from '../components/Icon.astro';
 import { hpPhysio } from '../data/content';
 import { site } from '../data/site';
+
+// Q&A-Inhalte (verbatim) als FAQ-Accordion statt Fließtext.
+const faqItems = hpPhysio.sections.map((s) => ({ q: s.heading as string, a: s.paras as string[] }));
 ---
 <Layout
   title={`HP Physio — Behandlung ohne Rezept | ${site.name}`}
@@ -39,16 +43,44 @@ import { site } from '../data/site';
     </div>
   </section>
 
-  <!-- Inhalt -->
+  <!-- Vorteile auf einen Blick (statt Fließtext: scanbare Karten) -->
   <section class="sec bg-paper">
     <div class="container-px">
-      <div class="max-w-3xl space-y-10">
-        {hpPhysio.sections.map((sec) => (
-          <div class="fade-in">
-            <h2 class="h-lg mb-3">{sec.heading}</h2>
-            {sec.paras.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted mb-4 text-pretty">{p}</p>)}
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Ihre Vorteile</span>
+        <h2 class="display-2 text-balance">Direkt zum Therapeuten Ihres Vertrauens</h2>
+      </div>
+      <div class="grid sm:grid-cols-3 gap-5 md:gap-6">
+        {[
+          { icon: 'Route', title: 'Ohne Umweg', text: 'Direkt zur physiotherapeutischen Behandlung — ohne vorherige ärztliche Verordnung.' },
+          { icon: 'ScanHeart', title: 'Individuell', text: 'Eigenverantwortliche Diagnostik im Bereich der Physiotherapie, auf Ihre Symptomatik bezogen.' },
+          { icon: 'Clock', title: 'Ohne Zeitverzug', text: 'Eine passende Therapie wird ohne großen Zeitverzug möglich — Sie verlieren keine Zeit.' },
+        ].map((c, i) => (
+          <div class={`card flex flex-col fade-in stagger-${i + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={c.icon} size={23} strokeWidth={1.7} /></span>
+            <h3 class="h-md mb-2">{c.title}</h3>
+            <p class="text-muted text-[0.96rem] leading-relaxed text-pretty">{c.text}</p>
           </div>
         ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ statt Fließtext -->
+  <section class="sec bg-cream border-y border-line">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+        <div class="lg:col-span-4 fade-in">
+          <span class="eyebrow mb-5">Häufige Fragen</span>
+          <h2 class="h-xl text-balance mb-4">Gut zu wissen</h2>
+          <p class="text-muted leading-relaxed text-pretty">
+            Die wichtigsten Fragen rund um die Behandlung ohne Rezept — kurz erklärt.
+            Sie haben weitere Fragen? <a href="/kontakt" class="arrow-link">Sprechen Sie uns an <Icon name="ArrowRight" size={13} strokeWidth={2.2} /></a>
+          </p>
+        </div>
+        <div class="lg:col-span-8 fade-in stagger-1">
+          <Faq items={faqItems} schema={true} />
+        </div>
       </div>
     </div>
   </section>
