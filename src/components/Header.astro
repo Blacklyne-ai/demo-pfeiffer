@@ -42,6 +42,10 @@ const isActive = (item: (typeof nav)[number]) =>
             <a href={item.href} target="_blank" rel="noopener" class="nav-link inline-flex items-center gap-1">
               {item.label}<Icon name="ArrowUpRight" size={13} strokeWidth={2.2} />
             </a>
+          ) : item.hiring ? (
+            <a href={item.href} aria-current={isActive(item) ? 'page' : undefined} title="Wir suchen Physiotherapeut:innen (m/w/d)" class={`nav-link nav-hiring inline-flex items-center gap-1.5 ${isActive(item) ? 'active' : ''}`}>
+              <span class="dot dot-green" aria-hidden="true"></span>{item.label}
+            </a>
           ) : (
             <a href={item.href} aria-current={isActive(item) ? 'page' : undefined} class={`nav-link ${isActive(item) ? 'active' : ''}`}>{item.label}</a>
           )
@@ -69,9 +73,11 @@ const isActive = (item: (typeof nav)[number]) =>
       {nav.filter((i) => i.href !== '/').map((item) => (
         <Fragment>
           <a href={item.href} target={item.external ? '_blank' : undefined} rel={item.external ? 'noopener' : undefined}
-            class="py-3 text-ink/90 hover:text-crimson-ink border-b border-line/70 font-display text-lg inline-flex items-center gap-1.5"
+            class="py-3 text-ink/90 hover:text-crimson-ink border-b border-line/70 font-display text-lg inline-flex items-center gap-2"
             style={current === item.href ? 'color:#7D0510' : ''}>
-            {item.label}{item.external && <Icon name="ArrowUpRight" size={15} strokeWidth={2} />}
+            {item.hiring && <span class="dot dot-green" aria-hidden="true"></span>}{item.label}
+            {item.hiring && <span class="ml-1 inline-flex items-center text-[0.6rem] font-sans font-semibold uppercase tracking-[0.1em] text-green leading-none">· Wir stellen ein</span>}
+            {item.external && <Icon name="ArrowUpRight" size={15} strokeWidth={2} />}
           </a>
           {item.children && (
             <div class="flex flex-col pl-4 border-b border-line/70">

@@ -104,7 +104,7 @@ export const careerMail = mailFor('Bewerbung als Physiotherapeut:in');
 
 // ── Navigation ────────────────────────────────────────────────
 export interface NavChild { href: string; label: string }
-export interface NavItem { href: string; label: string; external?: boolean; children?: NavChild[] }
+export interface NavItem { href: string; label: string; external?: boolean; hiring?: boolean; children?: NavChild[] }
 
 export const physioLinks: NavChild[] = [
   { href: '/physiotherapie/manuelle-therapie', label: 'Manuelle Therapie' },
@@ -132,7 +132,7 @@ export const nav: NavItem[] = [
   { href: '/hp-physio', label: 'HP Physio' },
   { href: '/physiofit', label: 'Physiofit' },
   { href: '/ueber-uns', label: 'Über uns' },
-  { href: '/karriere', label: 'Karriere' },
+  { href: '/karriere', label: 'Karriere', hiring: true },
   { href: '/kontakt', label: 'Kontakt' },
 ];
 
