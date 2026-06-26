@@ -1,0 +1,128 @@
+---
+// Detailseite einer Leistung (Physio oder Wellness). Datengetrieben aus content.ts.
+// Ruhig, type-led: Hero + Foto, Fließtext-Sektionen, Geschwister-Leistungen, CTA.
+import Layout from '../layouts/Layout.astro';
+import PageHero from './PageHero.astro';
+import CtaBand from './CtaBand.astro';
+import Icon from './Icon.astro';
+import { site } from '../data/site';
+import type { Service } from '../data/content';
+
+interface Props { service: Service; siblings: Service[] }
+const { service: s, siblings } = Astro.props;
+
+const isWellness = s.category === 'wellness';
+const overviewHref = isWellness ? '/wellness' : '/physiotherapie';
+const overviewLabel = isWellness ? 'Wellness' : 'Physiotherapie';
+const chip = s.iconStyle === 'sage' ? 'icon-chip icon-chip-sage' : 'icon-chip';
+
+const schema = {
+  '@type': 'MedicalTherapy',
+  name: s.title,
+  description: s.teaser,
+  url: new URL(`${overviewHref}/${s.slug}`, site.url).toString(),
+  provider: { '@id': site.url + '/#praxis' },
+};
+---
+<Layout
+  title={`${s.title} — ${site.name} Ditzingen`}
+  description={s.teaser}
+  current={`${overviewHref}/${s.slug}`}
+  schema={schema}
+>
+  <PageHero
+    eyebrow={s.eyebrow}
+    title={s.title}
+    subtitle={s.lead}
+    crumb={s.nav}
+    image={s.image}
+    imageAlt={`${s.title} — Physio Praxis Pfeiffer`}
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: overviewHref, label: `Alle ${overviewLabel}` }}
+  />
+
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <!-- Body -->
+        <div class="lg:col-span-7">
+          <span class={`${chip} mb-7`}><Icon name={s.icon} size={24} strokeWidth={1.7} /></span>
+          {s.upcoming && (
+            <p class="pill pill-crimson mb-6"><Icon name="Sparkles" size={14} strokeWidth={2} /> Neu ab Mai 2026</p>
+          )}
+          <div class="space-y-8">
+            {s.sections.map((sec) => (
+              <div class="fade-in">
+                {sec.heading && <h2 class="h-lg mb-3">{sec.heading}</h2>}
+                {sec.paras?.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted mb-4 text-pretty">{p}</p>)}
+                {sec.list && (
+                  <>
+                    {sec.listLabel && <p class="text-ink font-medium mb-3 mt-2">{sec.listLabel}</p>}
+                    <ul class="space-y-2.5">
+                      {sec.list.map((li) => (
+                        <li class="flex items-start gap-3 text-[1.02rem] text-muted">
+                          <Icon name="Check" size={18} strokeWidth={2.4} class={s.iconStyle === 'sage' ? 'text-sage-deep mt-1 flex-shrink-0' : 'text-crimson-deep mt-1 flex-shrink-0'} />
+                          <span>{li}</span>
+                        </li>
+                      ))}
+                    </ul>
+                  </>
+                )}
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Aside: ruhige Kontakt-Karte -->
+        <aside class="lg:col-span-5">
+          <div class="panel p-7 md:p-8 lg:sticky lg:top-28">
+            <p class="h-md mb-2">Termin vereinbaren</p>
+            <p class="text-muted text-[0.97rem] leading-relaxed mb-6">
+              Sie haben Fragen zu {s.title} oder möchten einen Termin? Rufen Sie uns gern an — Termine nach Vereinbarung.
+            </p>
+            <div class="flex flex-col gap-2.5">
+              <a href="/kontakt" class="btn btn-crimson btn-block">Termin vereinbaren<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+              <a href={`tel:${site.phoneIntl}`} class="btn btn-outline btn-block"><Icon name="Phone" size={16} strokeWidth={2.2} /> {site.phoneDisplay}</a>
+            </div>
+            {!isWellness && (
+              <div class="hairline my-7"></div>
+            )}
+            {!isWellness && (
+              <a href="/hp-physio" class="group flex items-start gap-3 text-left">
+                <span class="icon-chip flex-shrink-0"><Icon name="BadgeCheck" size={20} strokeWidth={1.8} /></span>
+                <span>
+                  <span class="block text-ink font-medium">Auch ohne Rezept möglich</span>
+                  <span class="block text-muted text-[0.9rem] leading-snug">Silke Pfeiffer-Flößer ist Heilpraktikerin für Physiotherapie. <span class="arrow-link text-[0.9rem]">Mehr erfahren <Icon name="ArrowRight" size={13} strokeWidth={2.2} /></span></span>
+                </span>
+              </a>
+            )}
+          </div>
+        </aside>
+      </div>
+    </div>
+  </section>
+
+  <!-- Geschwister-Leistungen -->
+  {siblings.length > 0 && (
+    <section class="sec-sm bg-cream border-t border-line">
+      <div class="container-px">
+        <div class="flex items-end justify-between gap-6 mb-8">
+          <h2 class="h-lg">Weitere {overviewLabel}</h2>
+          <a href={overviewHref} class="arrow-link flex-shrink-0">Alle ansehen <Icon name="ArrowRight" size={15} strokeWidth={2.2} /></a>
+        </div>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          {siblings.slice(0, 3).map((sib) => (
+            <a href={`${overviewHref}/${sib.slug}`} class="card card-hover group">
+              <span class={`${sib.iconStyle === 'sage' ? 'icon-chip icon-chip-sage' : 'icon-chip'} mb-5`}><Icon name={sib.icon} size={22} strokeWidth={1.7} /></span>
+              <h3 class="h-md mb-2">{sib.nav}</h3>
+              <p class="text-muted text-[0.95rem] leading-relaxed mb-4 text-pretty">{sib.teaser}</p>
+              <span class="arrow-link">Mehr <Icon name="ArrowRight" size={14} strokeWidth={2.2} /></span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </section>
+  )}
+
+  <CtaBand />
+</Layout>

@@ -1,0 +1,13 @@
+---
+import ServiceDetail from '../../components/ServiceDetail.astro';
+import { wellnessServices } from '../../data/content';
+
+export function getStaticPaths() {
+  return wellnessServices.map((s) => ({
+    params: { slug: s.slug },
+    props: { service: s, siblings: wellnessServices.filter((x) => x.slug !== s.slug) },
+  }));
+}
+const { service, siblings } = Astro.props;
+---
+<ServiceDetail service={service} siblings={siblings} />

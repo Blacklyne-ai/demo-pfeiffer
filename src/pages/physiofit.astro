@@ -1,0 +1,46 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { physiofit } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout
+  title={`Physiofit — Medizinisches Training | ${site.name}`}
+  description="Physiofit: medizinisches Training und Fitness unter fachlicher Begleitung in der Physio Praxis Pfeiffer in Ditzingen."
+  current="/physiofit"
+>
+  <PageHero
+    eyebrow={physiofit.eyebrow}
+    title="Physiofit — <em>Training</em> mit Begleitung"
+    subtitle={physiofit.lead}
+    crumb="Physiofit"
+    image={physiofit.image}
+    imageAlt="Physiofit — medizinisches Training in der Physio Praxis Pfeiffer"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/physiotherapie/move-one-station', label: 'Move One Station' }}
+  />
+
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="max-w-3xl fade-in">
+        <span class="icon-chip mb-7"><Icon name="Gauge" size={24} strokeWidth={1.7} /></span>
+        <p class="text-[1.08rem] leading-[1.75] text-muted text-pretty">{physiofit.body}</p>
+
+        <div class="panel p-6 md:p-7 mt-9 flex items-start gap-4">
+          <span class="icon-chip flex-shrink-0"><Icon name="Sparkles" size={20} strokeWidth={1.8} /></span>
+          <div>
+            <p class="text-ink font-medium mb-1">Neu ab Mai 2026: Move One Station</p>
+            <p class="text-muted text-[0.97rem] leading-relaxed">
+              Wir erweitern unser Trainingsangebot um die Move One Station.
+              <a href="/physiotherapie/move-one-station" class="arrow-link ml-1">Mehr erfahren <Icon name="ArrowRight" size={13} strokeWidth={2.2} /></a>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

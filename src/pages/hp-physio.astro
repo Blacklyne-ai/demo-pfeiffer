@@ -1,0 +1,57 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { hpPhysio } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout
+  title={`HP Physio — Behandlung ohne Rezept | ${site.name}`}
+  description="Silke Pfeiffer-Flößer ist Heilpraktikerin für Physiotherapie (Prüfung Gesundheitsamt Heilbronn, April 2015). Behandlung auch ohne ärztliche Verordnung in Ditzingen."
+  current="/hp-physio"
+>
+  <PageHero
+    eyebrow={hpPhysio.eyebrow}
+    title="Behandlung auch <em>ohne Rezept</em>"
+    subtitle={hpPhysio.lead}
+    crumb="HP Physio"
+    image="/images/team/silke.jpg"
+    imageAlt="Silke Pfeiffer-Flößer, Heilpraktikerin für Physiotherapie"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/physiotherapie', label: 'Unsere Leistungen' }}
+  />
+
+  <!-- Trust-Highlight: die bestandene Prüfung -->
+  <section class="bg-white sec-sm border-b border-line">
+    <div class="container-px">
+      <div class="panel p-7 md:p-9 grid md:grid-cols-[auto,1fr] gap-6 md:gap-8 items-center fade-in">
+        <span class="icon-chip !w-16 !h-16 !rounded-2xl flex-shrink-0"><Icon name="BadgeCheck" size={34} strokeWidth={1.6} /></span>
+        <div>
+          <p class="h-md mb-2">Sektorale Heilpraktiker-Erlaubnis für Physiotherapie</p>
+          <p class="text-muted text-[1.02rem] leading-relaxed text-pretty">
+            Diese Prüfung hat Silke Pfeiffer-Flößer vorm <strong>Gesundheitsamt Heilbronn im April 2015</strong>
+            mit Erfolg bestanden. Das berechtigt sie, Patientinnen und Patienten auch ohne ärztliche
+            Verordnung zu behandeln — das hat nicht jede Praxis.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Inhalt -->
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="max-w-3xl space-y-10">
+        {hpPhysio.sections.map((sec) => (
+          <div class="fade-in">
+            <h2 class="h-lg mb-3">{sec.heading}</h2>
+            {sec.paras.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted mb-4 text-pretty">{p}</p>)}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Direkt zur <em>Behandlung</em>" text="Sie möchten ohne Umweg starten oder haben eine Frage zur Behandlung ohne Rezept? Melden Sie sich gern — wir beraten Sie persönlich." />
+</Layout>

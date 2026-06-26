@@ -1,0 +1,249 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import CtaBand from '../components/CtaBand.astro';
+import MapBlock from '../components/MapBlock.astro';
+import { site, telLink, mailLink } from '../data/site';
+import { welcome, physioServices, wellnessServices, hpPhysio, job } from '../data/content';
+
+const heroTrust = [
+  { icon: 'BadgeCheck', text: 'Heilpraktikerin für Physiotherapie' },
+  { icon: 'Award', text: 'Lizenzierte Praxis · PhysioNetzwerk' },
+  { icon: 'MapPin', text: 'Ditzingen bei Stuttgart' },
+];
+---
+<Layout title={`${site.name} — Physiotherapie & Wellness in Ditzingen`} description={site.description} current="/">
+  <!-- ════════ HERO ════════ -->
+  <section class="relative overflow-hidden bg-cream pt-28 pb-16 md:pt-36 md:pb-24 border-b border-line">
+    <div class="absolute -left-32 top-10 w-[34rem] h-[34rem] rounded-full opacity-[0.05] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-crimson)) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="container-px relative">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+        <div class="lg:col-span-6 xl:col-span-7">
+          <span class="eyebrow mb-6"><Icon name="MapPin" size={14} strokeWidth={2.2} /> Physiotherapie &amp; Wellness · Ditzingen</span>
+          <h1 class="display-1 text-balance">Physiotherapie in Ditzingen — <em>persönlich und nah.</em></h1>
+          <p class="lead mt-7 max-w-xl text-pretty">
+            In unserer Praxis erhalten Sie alle Leistungen rund um die Physiotherapie — ergänzt um
+            ruhige Wellness-Anwendungen. Persönlich geführt von Silke Pfeiffer-Flößer.
+          </p>
+          <div class="flex flex-col sm:flex-row gap-3 mt-9">
+            <a href="/kontakt" class="btn btn-crimson btn-lg">Termin vereinbaren<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+            <a href="/physiotherapie" class="btn btn-outline btn-lg">Unsere Leistungen</a>
+          </div>
+          <ul class="flex flex-wrap gap-x-6 gap-y-2.5 mt-10">
+            {heroTrust.map((t) => (
+              <li class="inline-flex items-center gap-2 text-[0.88rem] text-ink/70">
+                <Icon name={t.icon} size={16} strokeWidth={2} class="text-crimson-deep" />{t.text}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div class="lg:col-span-6 xl:col-span-5">
+          <div class="relative max-w-md mx-auto lg:ml-auto">
+            <div class="photo-frame aspect-[4/5]">
+              <img src="/images/team/silke.jpg" alt="Silke Pfeiffer-Flößer, Inhaberin der Physio Praxis Pfeiffer in Ditzingen" width="440" height="550" loading="eager" />
+            </div>
+            <div class="absolute -bottom-5 -left-5 sm:-left-8 bg-white rounded-2xl shadow-photo border border-line p-4 pr-5 flex items-center gap-3 max-w-[15rem]">
+              <span class="icon-chip flex-shrink-0"><Icon name="BadgeCheck" size={22} strokeWidth={1.8} /></span>
+              <p class="text-[0.82rem] leading-snug text-ink"><span class="font-semibold">Behandlung ohne Rezept</span><br /><span class="text-muted">Heilpraktikerin für Physiotherapie</span></p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ WILLKOMMEN ════════ -->
+  <section class="sec-sm bg-paper">
+    <div class="container-px">
+      <p class="pullquote max-w-4xl text-balance fade-in">{welcome}</p>
+    </div>
+  </section>
+
+  <!-- ════════ HP PHYSIO (USP, früh) ════════ -->
+  <section class="sec bg-white border-y border-line relative overflow-hidden">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div class="lg:col-span-7 fade-in">
+          <span class="eyebrow mb-5">{hpPhysio.eyebrow}</span>
+          <h2 class="display-2 text-balance mb-6">Behandlung auch <em>ohne Rezept.</em></h2>
+          <p class="text-[1.08rem] leading-[1.75] text-muted mb-5 text-pretty">{hpPhysio.lead}</p>
+          <p class="text-muted leading-relaxed mb-8 text-pretty">
+            Normalerweise dürfen Physiotherapeuten nur nach ärztlicher Verordnung behandeln. Als
+            sektorale Heilpraktikerin kann Silke Pfeiffer-Flößer Sie ohne Umweg direkt behandeln —
+            das hat nicht jede Praxis.
+          </p>
+          <a href="/hp-physio" class="btn btn-crimson">Mehr über HP Physio<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+        </div>
+        <div class="lg:col-span-5 fade-in stagger-1">
+          <div class="panel p-7 md:p-8">
+            <div class="flex items-center gap-4 mb-6">
+              <span class="icon-chip !w-14 !h-14 !rounded-2xl flex-shrink-0"><Icon name="BadgeCheck" size={30} strokeWidth={1.6} /></span>
+              <div>
+                <p class="text-ink font-semibold leading-tight">Geprüft &amp; bestanden</p>
+                <p class="text-muted text-[0.9rem]">Gesundheitsamt Heilbronn, April 2015</p>
+              </div>
+            </div>
+            <ul class="space-y-3.5">
+              {['Direkt zur Behandlung — ohne ärztliche Verordnung', 'Individuelle, auf Ihre Symptomatik bezogene Therapie', 'Ohne großen Zeitverzug starten'].map((b) => (
+                <li class="flex items-start gap-3 text-[0.97rem] text-muted">
+                  <Icon name="Check" size={18} strokeWidth={2.4} class="text-crimson-deep mt-0.5 flex-shrink-0" />{b}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PHYSIOTHERAPIE-LEISTUNGEN ════════ -->
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 fade-in">
+        <div class="max-w-2xl">
+          <span class="eyebrow mb-5">Physiotherapie</span>
+          <h2 class="display-2 text-balance">Von der Manuellen Therapie bis zum Rückentriathlon</h2>
+        </div>
+        <a href="/physiotherapie" class="btn btn-outline self-start md:self-auto flex-shrink-0">Alle Verfahren<Icon name="ArrowRight" size={15} strokeWidth={2.2} /></a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {physioServices.map((s, i) => (
+          <a href={`/physiotherapie/${s.slug}`} class={`card card-hover group flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={s.icon} size={23} strokeWidth={1.7} /></span>
+            <h3 class="h-md mb-2 flex items-center gap-2">
+              {s.nav}
+              {s.upcoming && <span class="pill pill-crimson !py-0.5 !px-2 !text-[0.68rem]">Mai 2026</span>}
+            </h3>
+            <p class="text-muted text-[0.95rem] leading-relaxed mb-5 text-pretty flex-1">{s.teaser}</p>
+            <span class="arrow-link mt-auto">Mehr <Icon name="ArrowRight" size={14} strokeWidth={2.2} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ WELLNESS ════════ -->
+  <section class="sec bg-cream border-y border-line">
+    <div class="container-px">
+      <div class="flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 fade-in">
+        <div class="max-w-2xl">
+          <span class="eyebrow eyebrow-sage mb-5">Wellness</span>
+          <h2 class="display-2 text-balance">Eine ruhige Auszeit zum Wohlfühlen</h2>
+        </div>
+        <a href="/wellness" class="btn btn-outline self-start md:self-auto flex-shrink-0">Zum Wellness<Icon name="ArrowRight" size={15} strokeWidth={2.2} /></a>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        {wellnessServices.map((s, i) => (
+          <a href={`/wellness/${s.slug}`} class={`card-flush card-hover group flex flex-col fade-in stagger-${(i % 4) + 1}`}>
+            <div class="aspect-[4/3] overflow-hidden bg-sand">
+              <img src={s.image} alt={s.title} width="380" height="285" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+            </div>
+            <div class="p-5 flex flex-col flex-1">
+              <h3 class="h-md mb-2">{s.nav}</h3>
+              <p class="text-muted text-[0.9rem] leading-relaxed mb-4 text-pretty flex-1">{s.teaser}</p>
+              <span class="arrow-link mt-auto" style="color: rgb(var(--rgb-sage-deep));">Mehr <Icon name="ArrowRight" size={14} strokeWidth={2.2} /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ ÜBER UNS / SILKE ════════ -->
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div class="lg:col-span-5 fade-in">
+          <div class="grid grid-cols-2 gap-4">
+            <div class="photo-frame photo-frame-soft aspect-[3/4]"><img src="/images/raeume/raum-01.jpg" alt="Behandlungsraum in Ditzingen" width="280" height="373" loading="lazy" /></div>
+            <div class="photo-frame photo-frame-soft aspect-[3/4] mt-8"><img src="/images/raeume/raum-03.jpg" alt="Behandlungsraum in Ditzingen" width="280" height="373" loading="lazy" /></div>
+          </div>
+        </div>
+        <div class="lg:col-span-7 fade-in stagger-1">
+          <span class="eyebrow mb-5">Über uns</span>
+          <h2 class="display-2 text-balance mb-6">Ein kompetentes Team — persönlich für Sie da</h2>
+          <p class="text-[1.05rem] leading-[1.75] text-muted mb-4 text-pretty">
+            Wir sind ein kompetentes Team von Physiotherapeuten, welches stets bestrebt ist, durch
+            kontinuierliche Fortbildungen unsere Therapiemethoden und -möglichkeiten weiter zu verbessern,
+            um Ihnen eine optimale Behandlung zu gewährleisten.
+          </p>
+          <p class="text-muted leading-relaxed mb-8 text-pretty">
+            Für Fragen oder Wünsche haben wir ein offenes Ohr — bitte nehmen Sie Kontakt mit uns auf.
+          </p>
+          <a href="/ueber-uns" class="btn btn-outline">Mehr über die Praxis<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ JOBANGEBOT (Recruiting) ════════ -->
+  <section class="sec bg-white border-y border-line">
+    <div class="container-px">
+      <div class="panel p-8 md:p-12 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center fade-in">
+        <div class="lg:col-span-8">
+          <span class="pill pill-crimson mb-5"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle</span>
+          <h2 class="h-xl text-balance mb-4">Wir suchen Verstärkung — {job.title}</h2>
+          <p class="text-muted text-[1.02rem] leading-relaxed text-pretty">{job.intro}</p>
+        </div>
+        <div class="lg:col-span-4 lg:text-right">
+          <a href="/karriere" class="btn btn-crimson btn-lg">Zur Stelle<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ PARTNER (dezent) ════════ -->
+  <section class="sec-sm bg-paper">
+    <div class="container-px">
+      <div class="flex flex-col sm:flex-row items-start sm:items-center gap-6 fade-in">
+        <img src={site.partner.logo} alt={site.partner.name} width="72" height="72" loading="lazy" class="w-16 h-16 rounded-xl object-contain flex-shrink-0 bg-white border border-line p-1.5" />
+        <div class="flex-1">
+          <p class="text-muted-light text-xs uppercase tracking-[0.16em] font-semibold mb-1">Partner</p>
+          <p class="text-ink font-medium">{site.partner.name}</p>
+          <p class="text-muted text-[0.95rem]">{site.partner.note}</p>
+        </div>
+        <a href={site.partner.url} target="_blank" rel="noopener" class="btn btn-outline btn-sm flex-shrink-0">Zum Partner<Icon name="ArrowUpRight" size={15} strokeWidth={2.2} /></a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ════════ KONTAKT + ANFAHRT ════════ -->
+  <section class="sec bg-cream border-t border-line">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">Kontakt &amp; Anfahrt</span>
+          <h2 class="display-2 text-balance mb-6">Wir freuen uns auf Sie</h2>
+          <p class="text-muted leading-relaxed mb-8 max-w-lg text-pretty">
+            Termine nach Vereinbarung. Rufen Sie uns gern an oder schreiben Sie eine E-Mail —
+            wir nehmen uns Zeit für Ihr Anliegen.
+          </p>
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="MapPin" size={19} strokeWidth={1.9} /></span>
+              <span class="text-ink font-medium">{site.street}, {site.postcode} {site.city}</span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="Phone" size={19} strokeWidth={1.9} /></span>
+              <a href={telLink} class="text-ink font-medium hover:text-crimson-ink transition">{site.phoneDisplay}</a>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="Mail" size={19} strokeWidth={1.9} /></span>
+              <a href={mailLink} class="text-ink font-medium hover:text-crimson-ink transition break-all">{site.email}</a>
+            </li>
+          </ul>
+          <div class="flex flex-wrap gap-3">
+            <a href="/kontakt" class="btn btn-crimson">Termin vereinbaren<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+            <a href={telLink} class="btn btn-outline"><Icon name="Phone" size={16} strokeWidth={2.2} /> Anrufen</a>
+          </div>
+        </div>
+        <div class="fade-in stagger-1">
+          <MapBlock class="aspect-[4/3]" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

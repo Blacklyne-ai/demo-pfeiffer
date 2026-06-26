@@ -1,0 +1,42 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { physioServices } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout
+  title={`Physiotherapie in Ditzingen — ${site.name}`}
+  description="Manuelle Therapie, Krankengymnastik, Massage, Lymphdrainage, Wirbeltherapie nach Dorn, Kinesio Taping und mehr — Physiotherapie in Ditzingen bei Stuttgart."
+  current="/physiotherapie"
+>
+  <PageHero
+    eyebrow="Physiotherapie"
+    title="Alle Leistungen rund um die <em>Physiotherapie</em>"
+    subtitle="In unserer Praxis können Sie alle Leistungen rund um die Physiotherapie erhalten — von der Manuellen Therapie bis zum Rückentriathlon. Wählen Sie ein Verfahren für mehr Details."
+    crumb="Physiotherapie"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/hp-physio', label: 'Auch ohne Rezept' }}
+  />
+
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {physioServices.map((s, i) => (
+          <a href={`/physiotherapie/${s.slug}`} class={`card card-hover group flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={s.icon} size={23} strokeWidth={1.7} /></span>
+            <h2 class="h-md mb-2 flex items-center gap-2">
+              {s.nav}
+              {s.upcoming && <span class="pill pill-crimson !py-0.5 !px-2 !text-[0.68rem]">Mai 2026</span>}
+            </h2>
+            <p class="text-muted text-[0.96rem] leading-relaxed mb-5 text-pretty flex-1">{s.teaser}</p>
+            <span class="arrow-link mt-auto">Mehr erfahren <Icon name="ArrowRight" size={14} strokeWidth={2.2} /></span>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

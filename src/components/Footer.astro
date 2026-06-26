@@ -1,0 +1,79 @@
+---
+import { site, footerNav, legalNav, mailLink, telLink } from '../data/site';
+import Icon from './Icon.astro';
+const year = 2026;
+---
+<footer class="section-dark on-dark relative overflow-hidden" role="contentinfo" style="background: rgb(var(--rgb-dark-deep));">
+  <div class="container-px relative pt-16 md:pt-20 pb-24 lg:pb-12">
+    <div class="grid md:grid-cols-2 lg:grid-cols-12 gap-12 lg:gap-10 pb-12 border-b border-white/10">
+      <!-- Brand -->
+      <div class="lg:col-span-4">
+        <a href="/" aria-label={`${site.name} – Startseite`} class="inline-block">
+          <img src="/logo-light.png" alt="Physio Praxis Pfeiffer" width="181" height="302" class="h-16 w-auto" loading="lazy" />
+        </a>
+        <p class="text-white/60 text-[0.95rem] leading-relaxed mt-6 max-w-xs text-pretty">
+          Physiotherapie und Wellness in Ditzingen — persönlich geführt von Silke Pfeiffer-Flößer,
+          Heilpraktikerin für Physiotherapie. Behandlung auch ohne ärztliche Verordnung.
+        </p>
+        <div class="flex flex-wrap items-center gap-2.5 mt-7">
+          <a href={telLink} class="btn btn-ghost btn-sm"><Icon name="Phone" size={15} strokeWidth={2.2} /> Anrufen</a>
+          <a href={mailLink} class="btn btn-ghost btn-sm"><Icon name="Mail" size={15} strokeWidth={2.2} /> E-Mail</a>
+        </div>
+      </div>
+
+      <!-- Physiotherapie -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Physiotherapie</h3>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          {footerNav.physio.map((l) => (<li><a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a></li>))}
+        </ul>
+      </div>
+
+      <!-- Wellness + Praxis -->
+      <div class="lg:col-span-2">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Wellness</h3>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          {footerNav.wellness.map((l) => (<li><a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a></li>))}
+        </ul>
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5 mt-8">Praxis</h3>
+        <ul class="space-y-2.5 text-[0.92rem]">
+          {footerNav.praxis.map((l) => (<li><a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a></li>))}
+        </ul>
+      </div>
+
+      <!-- Kontakt -->
+      <div class="lg:col-span-3">
+        <h3 class="text-white text-[0.74rem] font-semibold uppercase tracking-[0.16em] mb-5">Kontakt</h3>
+        <ul class="space-y-3 text-[0.92rem] text-white/60">
+          <li>
+            <p class="text-white/85 font-medium mb-0.5">{site.name}</p>
+            <p>{site.street}, {site.postcode} {site.city}</p>
+          </li>
+          <li>
+            <a href={telLink} class="inline-flex items-center gap-2 hover:text-white transition">
+              <Icon name="Phone" size={14} strokeWidth={2} class="text-crimson-bright" />{site.phoneDisplay}
+            </a>
+          </li>
+          <li>
+            <a href={mailLink} class="inline-flex items-center gap-2 hover:text-white transition break-all">
+              <Icon name="Mail" size={14} strokeWidth={2} class="text-crimson-bright" />{site.email}
+            </a>
+          </li>
+          <li class="inline-flex items-center gap-2">
+            <Icon name="Clock" size={14} strokeWidth={2} class="text-crimson-bright" />{site.hoursNote}
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- Legal bar -->
+    <div class="pt-7 flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+      <p class="text-white/55 text-[0.82rem] text-pretty">
+        © {year} {site.legal.name} · {site.legal.street}, {site.legal.postcode} {site.legal.city}
+      </p>
+      <div class="flex items-center gap-5 text-[0.85rem]">
+        {legalNav.map((l) => (<a href={l.href} class="text-white/60 hover:text-white transition">{l.label}</a>))}
+      </div>
+    </div>
+  </div>
+</footer>

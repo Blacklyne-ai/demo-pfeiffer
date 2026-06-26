@@ -1,0 +1,45 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { wellnessServices } from '../data/content';
+import { site } from '../data/site';
+---
+<Layout
+  title={`Wellness in Ditzingen — ${site.name}`}
+  description="Hot Stone Massage, Energetische Fußreflexmassage, Aromaölmassage und Geschenkgutscheine — ruhige Wohlfühlmomente in unserer Praxis in Ditzingen."
+  current="/wellness"
+>
+  <PageHero
+    eyebrow="Wellness"
+    title="Eine ruhige <em>Auszeit</em> für Körper und Seele"
+    subtitle="Neben der Physiotherapie laden unsere Wohlfühlangebote zum Entspannen ein — mit warmen Ölen, heißen Steinen und viel Ruhe."
+    crumb="Wellness"
+    image="/images/anwendungen/hot-stone-1.jpg"
+    imageAlt="Hot Stone Massage — Physio Praxis Pfeiffer"
+    primary={{ href: '/kontakt', label: 'Termin vereinbaren' }}
+    secondary={{ href: '/wellness/geschenkgutscheine', label: 'Gutscheine' }}
+  />
+
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-5 md:gap-6">
+        {wellnessServices.map((s, i) => (
+          <a href={`/wellness/${s.slug}`} class={`card card-hover group flex flex-col overflow-hidden !p-0 fade-in stagger-${(i % 4) + 1}`}>
+            <div class="aspect-[4/3] overflow-hidden bg-sand">
+              <img src={s.image} alt={s.title} width="420" height="315" loading="lazy" class="w-full h-full object-cover transition-transform duration-700 group-hover:scale-[1.04]" />
+            </div>
+            <div class="p-6 flex flex-col flex-1">
+              <h2 class="h-md mb-2">{s.nav}</h2>
+              <p class="text-muted text-[0.93rem] leading-relaxed mb-4 text-pretty flex-1">{s.teaser}</p>
+              <span class="arrow-link mt-auto" style="color: rgb(var(--rgb-sage-deep));">Mehr <Icon name="ArrowRight" size={14} strokeWidth={2.2} /></span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CtaBand title="Eine Auszeit <em>verschenken?</em>" text="Geschenk-Gutscheine stellen wir für alle Wohlfühlangebote aus. Sprechen Sie uns einfach an." />
+</Layout>

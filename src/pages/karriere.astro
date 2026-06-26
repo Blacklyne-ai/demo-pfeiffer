@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import { site, careerMail, telLink } from '../data/site';
+import { job } from '../data/content';
+
+// JobPosting (Google for Jobs) — nur belegte Fakten. baseSalary bewusst
+// ausgelassen ("überdurchschnittlich" ohne bestätigten Betrag/Zeitraum).
+const jobSchema = {
+  '@type': 'JobPosting',
+  title: job.title,
+  description: `${job.intro} ${job.paras.join(' ')}`,
+  datePosted: '2026-06-01',
+  employmentType: ['FULL_TIME', 'PART_TIME'],
+  directApply: true,
+  hiringOrganization: { '@type': 'Organization', name: site.name, sameAs: site.url, logo: new URL('/logo.png', site.url).toString() },
+  jobLocation: {
+    '@type': 'Place',
+    address: { '@type': 'PostalAddress', streetAddress: site.street, postalCode: site.postcode, addressLocality: site.city, addressRegion: 'Baden-Württemberg', addressCountry: 'DE' },
+  },
+};
+
+const columns = [
+  { icon: 'ListChecks', title: 'Deine Aufgaben', items: job.aufgaben },
+  { icon: 'GraduationCap', title: 'Das bringst du mit', items: job.profil },
+  { icon: 'HeartHandshake', title: 'Das bieten wir', items: job.benefits },
+];
+---
+<Layout
+  title={`Karriere — Physiotherapeut/in gesucht | ${site.name}`}
+  description="Physiotherapeut/in (m/w/d) für die Physio Praxis Pfeiffer in Ditzingen — Voll- oder Teilzeit, auf Wunsch 4-Tage-Woche, überdurchschnittliche Bezahlung, nettes Team."
+  current="/karriere"
+  schema={jobSchema}
+>
+  <PageHero
+    eyebrow="Karriere"
+    title="Lust auf Veränderung? <em>Dann komm zu uns.</em>"
+    subtitle={job.intro}
+    crumb="Karriere"
+    primary={{ href: careerMail, label: 'Jetzt bewerben' }}
+    secondary={{ href: '/ueber-uns', label: 'Über die Praxis' }}
+  />
+
+  <!-- Position-Badge -->
+  <section class="bg-white border-b border-line">
+    <div class="container-px py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 fade-in">
+      <span class="pill pill-crimson self-start"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle</span>
+      <p class="text-ink"><span class="font-medium">{job.title}</span><span class="text-muted-light"> · Ditzingen · Voll- oder Teilzeit · 4-Tage-Woche möglich</span></p>
+    </div>
+  </section>
+
+  <!-- Intro-Text (verbatim) -->
+  <section class="bg-paper sec-sm">
+    <div class="container-px">
+      <div class="max-w-3xl space-y-4 fade-in">
+        {job.paras.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted text-pretty">{p}</p>)}
+      </div>
+    </div>
+  </section>
+
+  <!-- Aufgaben / Profil / Bieten -->
+  <section class="bg-white sec border-y border-line">
+    <div class="container-px">
+      <div class="grid md:grid-cols-3 gap-5 md:gap-6">
+        {columns.map((c, i) => (
+          <div class={`card flex flex-col fade-in stagger-${i + 1}`}>
+            <span class="icon-chip mb-5"><Icon name={c.icon} size={23} strokeWidth={1.7} /></span>
+            <h2 class="h-md mb-4">{c.title}</h2>
+            <ul class="space-y-3">
+              {c.items.map((it) => (
+                <li class="flex items-start gap-3 text-[0.97rem] text-muted">
+                  <Icon name="Check" size={17} strokeWidth={2.4} class="text-crimson-deep mt-1 flex-shrink-0" />
+                  <span>{it}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bewerben -->
+  <section class="section-dark on-dark sec relative overflow-hidden">
+    <div class="absolute -right-24 -top-24 w-[26rem] h-[26rem] rounded-full opacity-[0.14] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-crimson-bright)) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="container-px relative">
+      <div class="max-w-3xl fade-in">
+        <span class="eyebrow eyebrow-light mb-6">Bewerben</span>
+        <h2 class="display-2 text-white text-balance mb-5">Klingt das nach Ihnen? Melden Sie sich.</h2>
+        <p class="text-lg text-white/75 leading-relaxed mb-9 max-w-2xl text-pretty">
+          Schicken Sie uns einfach ein paar Zeilen über sich — gern per E-Mail oder Telefon.
+          Eine Initiativbewerbung ist jederzeit willkommen.
+        </p>
+        <div class="flex flex-col sm:flex-row flex-wrap gap-3">
+          <a href={careerMail} class="btn btn-light btn-lg"><Icon name="Mail" size={17} strokeWidth={2} /> Per E-Mail bewerben</a>
+          <a href={telLink} class="btn btn-ghost btn-lg"><Icon name="Phone" size={17} strokeWidth={2.2} /> {site.phoneDisplay}</a>
+        </div>
+        <p class="text-white/45 text-[0.82rem] mt-7 max-w-2xl">
+          Bewerberdaten behandeln wir vertraulich nach den Vorgaben der DSGVO.
+          Bitte senden Sie sensible Unterlagen nicht über unverschlüsselte Kanäle.
+        </p>
+      </div>
+    </div>
+  </section>
+</Layout>

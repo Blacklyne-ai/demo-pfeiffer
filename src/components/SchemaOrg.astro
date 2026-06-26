@@ -1,0 +1,44 @@
+---
+// Schema.org — ein Physiotherapie-Standort + Inhaberin. Nur belegte Fakten
+// (Scrape/Impressum). Kein erfundenes Rating, keine erfundenen Öffnungszeiten.
+import { site } from '../data/site';
+interface Props { schema?: object | object[] | null }
+const { schema = null } = Astro.props;
+
+const person = {
+  '@type': 'Person',
+  '@id': site.url + '/#silke',
+  name: 'Silke Pfeiffer-Flößer',
+  jobTitle: 'Heilpraktikerin für Physiotherapie',
+  worksFor: { '@id': site.url + '/#praxis' },
+};
+
+const place = {
+  '@type': 'Physiotherapy',
+  '@id': site.url + '/#praxis',
+  name: site.name,
+  legalName: site.legalName,
+  description: site.description,
+  url: site.url,
+  telephone: site.phoneIntl,
+  faxNumber: site.faxDisplay,
+  email: site.email,
+  image: new URL('/images/og-image.jpg', site.url).toString(),
+  logo: new URL('/logo.png', site.url).toString(),
+  founder: { '@id': site.url + '/#silke' },
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: site.street,
+    postalCode: site.postcode,
+    addressLocality: site.city,
+    addressRegion: 'Baden-Württemberg',
+    addressCountry: 'DE',
+  },
+  areaServed: ['Ditzingen', 'Stuttgart', 'Korntal-Münchingen', 'Gerlingen', 'Schwieberdingen'],
+  medicalSpecialty: ['Physiotherapy'],
+};
+
+const extra = schema ? (Array.isArray(schema) ? schema : [schema]) : [];
+const json = JSON.stringify({ '@context': 'https://schema.org', '@graph': [person, place, ...extra] });
+---
+<script type="application/ld+json" set:html={json} />

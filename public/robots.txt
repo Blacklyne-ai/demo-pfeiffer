@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /impressum
+Disallow: /datenschutz
+
+Sitemap: https://demo-pfeiffer.pages.dev/sitemap-index.xml

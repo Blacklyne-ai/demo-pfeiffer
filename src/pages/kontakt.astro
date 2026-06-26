@@ -1,0 +1,83 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Icon from '../components/Icon.astro';
+import PageHero from '../components/PageHero.astro';
+import MapBlock from '../components/MapBlock.astro';
+import { site, mailLink, telLink } from '../data/site';
+
+const tiles = [
+  { icon: 'Phone', label: 'Telefon', value: site.phoneDisplay, href: telLink, ext: false, accent: 'crimson' },
+  { icon: 'Mail', label: 'E-Mail', value: site.email, href: mailLink, ext: false, accent: 'crimson' },
+  { icon: 'MapPin', label: 'Adresse', value: `${site.street}, ${site.postcode} ${site.city}`, href: site.mapsUrl, ext: true, accent: 'sage' },
+  { icon: 'Clock', label: 'Termine', value: 'nach Vereinbarung', href: telLink, ext: false, accent: 'sage' },
+];
+---
+<Layout
+  title={`Termin vereinbaren — ${site.name}`}
+  description="Termin vereinbaren bei der Physio Praxis Pfeiffer in Ditzingen — per Telefon oder E-Mail. Termine nach Vereinbarung."
+  current="/kontakt"
+>
+  <PageHero
+    eyebrow="Kontakt"
+    title="Termin <em>vereinbaren</em>"
+    subtitle="Termine nach Vereinbarung. Rufen Sie uns gern an oder schreiben Sie eine E-Mail — wir hören zu und finden gemeinsam den nächsten Schritt."
+    crumb="Kontakt"
+  />
+
+  <!-- Kontakt-Tiles (kein Formular) -->
+  <section class="bg-white sec-sm border-b border-line">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {tiles.map((t, i) => (
+          <a href={t.href} target={t.ext ? '_blank' : undefined} rel={t.ext ? 'noopener' : undefined}
+            class={`card card-hover flex flex-col items-start fade-in stagger-${(i % 4) + 1}`}>
+            <span class={`mb-4 ${t.accent === 'sage' ? 'icon-chip icon-chip-sage' : 'icon-chip'}`}><Icon name={t.icon} size={22} strokeWidth={1.8} /></span>
+            <span class="text-muted-light text-sm">{t.label}</span>
+            <span class="text-ink font-medium mt-1 break-words">{t.value}</span>
+          </a>
+        ))}
+      </div>
+      <p class="text-muted-light text-sm mt-6 max-w-2xl">
+        Bitte schicken Sie aus Datenschutzgründen keine sensiblen Gesundheitsdaten per
+        unverschlüsselter Nachricht. Alles Weitere besprechen wir gern persönlich.
+      </p>
+    </div>
+  </section>
+
+  <!-- Standort + Karte -->
+  <section class="bg-paper sec">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-2 gap-10 lg:gap-14 items-center">
+        <div class="fade-in">
+          <span class="eyebrow mb-5">So finden Sie uns</span>
+          <h2 class="h-xl mb-2">{site.name}</h2>
+          <p class="text-muted mb-7">{site.street} · {site.postcode} {site.city} {site.region}</p>
+
+          <ul class="space-y-4 mb-8">
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="Phone" size={19} strokeWidth={1.9} /></span>
+              <span><span class="block text-muted-light text-sm">Telefon</span><a href={telLink} class="text-ink font-medium hover:text-crimson-ink transition">{site.phoneDisplay}</a></span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="Mail" size={19} strokeWidth={1.9} /></span>
+              <span><span class="block text-muted-light text-sm">E-Mail</span><a href={mailLink} class="text-ink font-medium hover:text-crimson-ink transition break-all">{site.email}</a></span>
+            </li>
+            <li class="flex items-center gap-3">
+              <span class="icon-chip flex-shrink-0"><Icon name="Clock" size={19} strokeWidth={1.9} /></span>
+              <span><span class="block text-muted-light text-sm">Sprechzeiten</span><span class="text-ink font-medium">Termine nach Vereinbarung</span></span>
+            </li>
+          </ul>
+
+          <div class="flex flex-wrap gap-3">
+            <a href={telLink} class="btn btn-crimson"><Icon name="Phone" size={16} strokeWidth={2.2} /> Anrufen</a>
+            <a href={site.mapsUrl} target="_blank" rel="noopener" class="btn btn-outline"><Icon name="Navigation" size={16} strokeWidth={2.2} /> Route berechnen</a>
+          </div>
+        </div>
+
+        <div class="fade-in">
+          <MapBlock class="aspect-[4/3]" />
+        </div>
+      </div>
+    </div>
+  </section>
+</Layout>

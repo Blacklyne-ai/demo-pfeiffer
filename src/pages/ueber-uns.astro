@@ -1,0 +1,79 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHero from '../components/PageHero.astro';
+import CtaBand from '../components/CtaBand.astro';
+import Icon from '../components/Icon.astro';
+import { ueberUns } from '../data/content';
+import { site, team } from '../data/site';
+
+const werte = [
+  { icon: 'Heart', title: 'Persönlich geführt', text: 'Eine Praxis mit Gesicht: Silke Pfeiffer-Flößer und ihr Team begleiten Sie persönlich und herzlich.' },
+  { icon: 'GraduationCap', title: 'Kontinuierliche Fortbildung', text: 'Wir bilden uns laufend weiter, um unsere Therapiemethoden und -möglichkeiten stetig zu verbessern.' },
+  { icon: 'BadgeCheck', title: 'Auch ohne Rezept', text: 'Als Heilpraktikerin für Physiotherapie kann Silke Pfeiffer-Flößer auch ohne ärztliche Verordnung behandeln.' },
+];
+---
+<Layout
+  title={`Über uns — ${site.name} Ditzingen`}
+  description="Lernen Sie die Physio Praxis Pfeiffer in Ditzingen kennen — persönlich geführt von Silke Pfeiffer-Flößer, Heilpraktikerin für Physiotherapie."
+  current="/ueber-uns"
+>
+  <PageHero
+    eyebrow="Über uns"
+    title="Ein kompetentes Team — <em>persönlich</em> für Sie da"
+    subtitle="Wir freuen uns, dass Sie unsere Seite gefunden haben, und heißen Sie herzlich willkommen."
+    crumb="Über uns"
+    image="/images/raeume/raum-01.jpg"
+    imageAlt="Behandlungsraum der Physio Praxis Pfeiffer in Ditzingen"
+  />
+
+  <!-- Silke + Text -->
+  <section class="sec bg-paper">
+    <div class="container-px">
+      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+        <div class="lg:col-span-5 fade-in">
+          <div class="photo-frame aspect-[4/5] max-w-md">
+            <img src="/images/team/silke.jpg" alt="Silke Pfeiffer-Flößer, Inhaberin und Heilpraktikerin für Physiotherapie" width="520" height="650" loading="lazy" />
+          </div>
+        </div>
+        <div class="lg:col-span-7 fade-in">
+          <span class="eyebrow mb-5">Silke Pfeiffer-Flößer</span>
+          <h2 class="h-xl mb-6">Inhaberin &amp; Heilpraktikerin für Physiotherapie</h2>
+          {ueberUns.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted mb-4 text-pretty">{p}</p>)}
+          <div class="flex flex-wrap gap-2.5 mt-6">
+            {team[0].quals?.map((q) => <span class="pill pill-crimson">{q}</span>)}
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Werte -->
+  <section class="sec-sm bg-cream border-y border-line">
+    <div class="container-px">
+      <div class="grid sm:grid-cols-3 gap-5 md:gap-6">
+        {werte.map((w, i) => (
+          <div class={`card flex flex-col fade-in stagger-${i + 1}`}>
+            <span class={`mb-5 ${i === 2 ? 'icon-chip' : 'icon-chip icon-chip-sage'}`}><Icon name={w.icon} size={23} strokeWidth={1.7} /></span>
+            <h3 class="h-md mb-2">{w.title}</h3>
+            <p class="text-muted text-[0.96rem] leading-relaxed text-pretty">{w.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Recruiting-Brücke -->
+  <section class="sec-sm bg-paper">
+    <div class="container-px">
+      <div class="panel p-7 md:p-9 flex flex-col sm:flex-row sm:items-center gap-5 justify-between fade-in">
+        <div>
+          <h3 class="h-md mb-1">Wir suchen Verstärkung</h3>
+          <p class="text-muted text-[0.97rem] text-pretty">Physiotherapeut/in (m/w/d) in Voll- oder Teilzeit — auf Wunsch 4-Tage-Woche.</p>
+        </div>
+        <a href="/karriere" class="btn btn-outline flex-shrink-0">Zur Stelle<Icon name="ArrowRight" size={16} strokeWidth={2.2} /></a>
+      </div>
+    </div>
+  </section>
+
+  <CtaBand />
+</Layout>

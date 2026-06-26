@@ -1,0 +1,66 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { site } from '../data/site';
+const L = site.legal;
+---
+<Layout title={`Impressum — ${site.name}`} noindex={true} current="/impressum">
+  <section class="bg-cream pt-28 pb-12 md:pt-36 md:pb-16 border-b border-line">
+    <div class="container-narrow">
+      <span class="eyebrow mb-4">Rechtliches</span>
+      <h1 class="display-2">Impressum</h1>
+    </div>
+  </section>
+  <section class="bg-white sec-sm">
+    <div class="container-narrow legal-prose">
+      <h2>Angaben gemäß § 5 TMG</h2>
+      <p>
+        {L.name}<br />
+        {L.street}<br />
+        {L.postcode} {L.city}
+      </p>
+      <p>Sitz der Gesellschaft: {L.seat}</p>
+      <p>
+        Registergericht: {L.court}<br />
+        Registernummer: {L.hrb}
+      </p>
+
+      <h2>Vertreten durch</h2>
+      <p>Geschäftsführerin: {L.manager}</p>
+
+      <h2>Kontakt</h2>
+      <p>
+        Telefon: {site.phoneDisplay}<br />
+        Telefax: {site.faxDisplay}<br />
+        E-Mail: <a href={`mailto:${site.email}`}>{site.email}</a>
+      </p>
+
+      <h2>Umsatzsteuer-ID</h2>
+      <p>Umsatzsteuer-Identifikationsnummer gemäß § 27a Umsatzsteuergesetz: {L.vatId}</p>
+
+      <h2>Berufsbezeichnung und berufsrechtliche Regelungen</h2>
+      <p>
+        Berufsbezeichnung: {L.profession} ({L.professionState})<br />
+        Es gilt das {L.professionLaw}.
+      </p>
+
+      <h2>Aufsichtsbehörde</h2>
+      <p>
+        {L.aufsicht}<br />
+        {L.aufsichtAddr}
+      </p>
+
+      <h2>EU-Streitschlichtung</h2>
+      <p>
+        Die Europäische Kommission stellt eine Plattform zur Online-Streitbeilegung (OS) bereit:
+        <a href="https://ec.europa.eu/consumers/odr/" target="_blank" rel="noopener">https://ec.europa.eu/consumers/odr/</a>.
+        Unsere E-Mail-Adresse finden Sie oben im Impressum.
+      </p>
+
+      <h2>Verbraucherstreitbeilegung / Universalschlichtungsstelle</h2>
+      <p>Wir sind nicht bereit oder verpflichtet, an Streitbeilegungsverfahren vor einer Verbraucherschlichtungsstelle teilzunehmen.</p>
+
+      <h2>Bildnachweis</h2>
+      <p>Logo, Portrait Silke Pfeiffer-Flößer sowie Praxis- und Anwendungsfotos: Physio Praxis Pfeiffer (eigene Darstellung).</p>
+    </div>
+  </section>
+</Layout>
