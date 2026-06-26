@@ -73,6 +73,28 @@ export const job = {
     'Nettes, offenes Team und selbstbestimmtes Arbeiten',
     'Rezeptionsteam unterstützt ganztägig bei Organisation und Verwaltung',
   ],
+  // Quick-Facts (scanbar) — alle Werte aus dem verbatim Jobtext
+  facts: [
+    { icon: 'BriefcaseBusiness', label: 'Anstellung', value: 'Voll- oder Teilzeit' },
+    { icon: 'CalendarCheck', label: 'Arbeitswoche', value: '4-Tage-Woche möglich · freitags frei' },
+    { icon: 'BadgeEuro', label: 'Bezahlung', value: 'Überdurchschnittlich' },
+    { icon: 'MapPin', label: 'Standort', value: 'Ditzingen bei Stuttgart' },
+  ],
+  // Employer-Branding — was die Arbeit bei Pfeiffer ausmacht (aus dem Jobtext abgeleitet)
+  warum: [
+    { icon: 'Heart', title: 'Nettes, offenes Team', text: 'Wir schätzen das selbstbestimmte Arbeiten in entspannter Wohlfühlatmosphäre.' },
+    { icon: 'Lightbulb', title: 'Deine Ideen zählen', text: 'Wir freuen uns, wenn Du neue Therapiekonzepte in die Praxis einbringen möchtest.' },
+    { icon: 'Users', title: 'Rückendeckung an der Rezeption', text: 'Unser Rezeptionsteam unterstützt Dich ganztägig — volle Konzentration auf die Therapie.' },
+    { icon: 'CalendarCheck', title: 'Freie Freitage möglich', text: 'Auf Wunsch arbeitest Du in einer 4-Tage-Woche und hast freitags frei.' },
+    { icon: 'GraduationCap', title: 'Fortbildung erwünscht', text: 'MT und MLD sind von Vorteil, aber kein Muss — wir wachsen gemeinsam weiter.' },
+    { icon: 'BadgeCheck', title: 'Persönlich geführt', text: 'Silke Pfeiffer-Flößer, Heilpraktikerin für Physiotherapie, führt die Praxis mit Herz.' },
+  ],
+  // Bewerbungs-Ablauf — bewusst niedrigschwellig (verbatim: „ein paar Zeilen", Lebenslauf reicht)
+  steps: [
+    { n: '01', title: 'Melde Dich', text: 'Ein paar Zeilen über Dich per E-Mail oder ein kurzer Anruf genügen. Ein Lebenslauf reicht für den Anfang.' },
+    { n: '02', title: 'Lernen wir uns kennen', text: 'Wir treffen uns in der Praxis, zeigen Dir alles und schauen, ob es für beide Seiten passt.' },
+    { n: '03', title: 'Leg los', text: 'Voll- oder Teilzeit, mit oder ohne freien Freitag — wir finden das Modell, das zu Dir passt.' },
+  ],
 };
 
 // ── Leistungen (Physiotherapie + Wellness) ────────────────────

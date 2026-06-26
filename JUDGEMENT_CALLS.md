@@ -46,8 +46,15 @@ Diese Datei dokumentiert getroffene Entscheidungen und offene Punkte für den Op
 - [ ] **Stellen-Details** (Karriere) — Aufgaben/Profil/Benefits wurden aus dem verbatim
       Jobtext gegliedert; „überdurchschnittliche Bezahlung" ohne Betrag → kein `baseSalary`
       im JobPosting-Schema. Bei Bedarf konkretisieren.
-- [ ] **Google Place-ID / echte Reviews.** Nicht zweifelsfrei auffindbar → keine Review-Badge
-      gefakt. Place-ID nachreichen, dann Maps-Embed + echte Sterne aktivierbar.
+- [x] **Google-Eintrag gefunden & verdrahtet.** Verifizierter Google-Maps-Eintrag:
+      CID `0xa4364fc320fa80e3` (= `11832732770453061859`), Koordinaten 48.8270643, 9.0661434.
+      → Karte zeigt jetzt den **echten Pin**; „Route" und die TrustBar verlinken den echten Eintrag.
+- [ ] **Echte Google-Reviews:** Es liegen aktuell **keine öffentlichen Bewertungen** vor
+      (golocal/11880: 0 Rezensionen; das kurz gesichtete „4,8/17" stand NICHT im Quelltext und
+      war ein Lese-Artefakt). Daher **keine Sterne erfunden** — die TrustBar zeigt belegbare
+      Vertrauens-Säulen + Google-Link. Sobald echte Bewertungen vorliegen: in
+      `src/data/site.ts → google.rating` + `google.reviews` eintragen, dann rendert die TrustBar
+      automatisch die echten Sterne (kein weiterer Code nötig).
 - [ ] **Privat/Kasse-Hinweis** — falls relevant und belegt, ergänzen (HP-Physio: Selbstzahler;
       gesetzliche Kassen nur mit ärztlicher Verordnung — verbatim aus hp-physio übernommen).
 

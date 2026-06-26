@@ -3,14 +3,9 @@ import Layout from '../layouts/Layout.astro';
 import Icon from '../components/Icon.astro';
 import CtaBand from '../components/CtaBand.astro';
 import MapBlock from '../components/MapBlock.astro';
-import { site, telLink, mailLink } from '../data/site';
+import TrustBar from '../components/TrustBar.astro';
+import { site, telLink, mailLink, careerMail } from '../data/site';
 import { welcome, physioServices, wellnessServices, hpPhysio, job } from '../data/content';
-
-const heroTrust = [
-  { icon: 'BadgeCheck', text: 'Heilpraktikerin für Physiotherapie' },
-  { icon: 'Award', text: 'Lizenzierte Praxis · PhysioNetzwerk' },
-  { icon: 'MapPin', text: 'Ditzingen bei Stuttgart' },
-];
 ---
 <Layout title={`${site.name} — Physiotherapie & Wellness in Ditzingen`} description={site.description} current="/">
   <!-- ════════ HERO ════════ -->
@@ -29,13 +24,9 @@ const heroTrust = [
             <a href="/kontakt" class="btn btn-crimson btn-lg">Termin vereinbaren<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
             <a href="/physiotherapie" class="btn btn-outline btn-lg">Unsere Leistungen</a>
           </div>
-          <ul class="flex flex-wrap gap-x-6 gap-y-2.5 mt-10">
-            {heroTrust.map((t) => (
-              <li class="inline-flex items-center gap-2 text-[0.88rem] text-ink/70">
-                <Icon name={t.icon} size={16} strokeWidth={2} class="text-crimson-deep" />{t.text}
-              </li>
-            ))}
-          </ul>
+          <p class="inline-flex items-center gap-2 text-[0.88rem] text-muted mt-8">
+            <Icon name="Clock" size={15} strokeWidth={2} class="text-crimson-deep" /> Termine nach Vereinbarung · {site.phoneDisplay}
+          </p>
         </div>
 
         <div class="lg:col-span-6 xl:col-span-5">
@@ -52,6 +43,8 @@ const heroTrust = [
       </div>
     </div>
   </section>
+
+  <TrustBar />
 
   <!-- ════════ WILLKOMMEN ════════ -->
   <section class="sec-sm bg-paper">
@@ -180,14 +173,22 @@ const heroTrust = [
   <!-- ════════ JOBANGEBOT (Recruiting) ════════ -->
   <section class="sec bg-white border-y border-line">
     <div class="container-px">
-      <div class="panel p-8 md:p-12 grid lg:grid-cols-12 gap-8 lg:gap-12 items-center fade-in">
-        <div class="lg:col-span-8">
-          <span class="pill pill-crimson mb-5"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle</span>
-          <h2 class="h-xl text-balance mb-4">Wir suchen Verstärkung — {job.title}</h2>
-          <p class="text-muted text-[1.02rem] leading-relaxed text-pretty">{job.intro}</p>
-        </div>
-        <div class="lg:col-span-4 lg:text-right">
-          <a href="/karriere" class="btn btn-crimson btn-lg">Zur Stelle<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+      <div class="panel p-8 md:p-12 fade-in">
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center">
+          <div class="lg:col-span-8">
+            <span class="pill pill-crimson mb-5"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Wir stellen ein</span>
+            <h2 class="h-xl text-balance mb-4">Verstärkung gesucht — {job.title}</h2>
+            <p class="text-muted text-[1.02rem] leading-relaxed text-pretty mb-7">{job.intro}</p>
+            <ul class="flex flex-wrap gap-2.5">
+              {['Voll- oder Teilzeit', '4-Tage-Woche möglich', 'freitags frei', 'überdurchschnittliche Bezahlung', 'nettes Team'].map((t) => (
+                <li class="pill pill-sage"><Icon name="Check" size={13} strokeWidth={2.6} /> {t}</li>
+              ))}
+            </ul>
+          </div>
+          <div class="lg:col-span-4 flex flex-col gap-3 lg:items-end">
+            <a href="/karriere" class="btn btn-crimson btn-lg w-full sm:w-auto">Zur Stelle<Icon name="ArrowRight" size={17} strokeWidth={2.2} /></a>
+            <a href={careerMail} class="btn btn-outline w-full sm:w-auto"><Icon name="Mail" size={16} strokeWidth={2.2} /> Direkt bewerben</a>
+          </div>
         </div>
       </div>
     </div>

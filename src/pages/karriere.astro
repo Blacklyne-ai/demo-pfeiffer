@@ -23,48 +23,91 @@ const jobSchema = {
 
 const columns = [
   { icon: 'ListChecks', title: 'Deine Aufgaben', items: job.aufgaben },
-  { icon: 'GraduationCap', title: 'Das bringst du mit', items: job.profil },
+  { icon: 'GraduationCap', title: 'Das bringst Du mit', items: job.profil },
   { icon: 'HeartHandshake', title: 'Das bieten wir', items: job.benefits },
 ];
 ---
 <Layout
   title={`Karriere — Physiotherapeut/in gesucht | ${site.name}`}
-  description="Physiotherapeut/in (m/w/d) für die Physio Praxis Pfeiffer in Ditzingen — Voll- oder Teilzeit, auf Wunsch 4-Tage-Woche, überdurchschnittliche Bezahlung, nettes Team."
+  description="Physiotherapeut/in (m/w/d) für die Physio Praxis Pfeiffer in Ditzingen — Voll- oder Teilzeit, auf Wunsch 4-Tage-Woche mit freiem Freitag, überdurchschnittliche Bezahlung, nettes Team."
   current="/karriere"
   schema={jobSchema}
 >
   <PageHero
-    eyebrow="Karriere"
+    eyebrow="Karriere · Wir stellen ein"
     title="Lust auf Veränderung? <em>Dann komm zu uns.</em>"
     subtitle={job.intro}
     crumb="Karriere"
+    image="/images/raeume/raum-02.jpg"
+    imageAlt="Behandlungsraum der Physio Praxis Pfeiffer — entspannte Wohlfühlatmosphäre"
     primary={{ href: careerMail, label: 'Jetzt bewerben' }}
-    secondary={{ href: '/ueber-uns', label: 'Über die Praxis' }}
+    secondary={{ href: '#stelle', label: 'Zur Stelle' }}
   />
 
-  <!-- Position-Badge -->
+  <!-- Quick-Facts -->
   <section class="bg-white border-b border-line">
-    <div class="container-px py-6 flex flex-col sm:flex-row sm:items-center gap-3 sm:gap-6 fade-in">
-      <span class="pill pill-crimson self-start"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle</span>
-      <p class="text-ink"><span class="font-medium">{job.title}</span><span class="text-muted-light"> · Ditzingen · Voll- oder Teilzeit · 4-Tage-Woche möglich</span></p>
+    <div class="container-px py-7 md:py-9">
+      <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5">
+        {job.facts.map((f, i) => (
+          <div class={`flex items-start gap-3 fade-in stagger-${(i % 4) + 1}`}>
+            <span class="icon-chip flex-shrink-0"><Icon name={f.icon} size={20} strokeWidth={1.8} /></span>
+            <span>
+              <span class="block text-muted-light text-[0.78rem] uppercase tracking-[0.1em] font-semibold">{f.label}</span>
+              <span class="block text-ink font-medium leading-snug text-[0.96rem] mt-0.5">{f.value}</span>
+            </span>
+          </div>
+        ))}
+      </div>
     </div>
   </section>
 
-  <!-- Intro-Text (verbatim) -->
-  <section class="bg-paper sec-sm">
+  <!-- Intro (verbatim) -->
+  <section id="stelle" class="bg-paper sec-sm scroll-mt-28">
     <div class="container-px">
-      <div class="max-w-3xl space-y-4 fade-in">
-        {job.paras.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted text-pretty">{p}</p>)}
+      <div class="grid lg:grid-cols-12 gap-8 lg:gap-14">
+        <div class="lg:col-span-7 space-y-4 fade-in">
+          <span class="pill pill-crimson"><Icon name="BriefcaseBusiness" size={14} strokeWidth={2} /> Offene Stelle · {job.title}</span>
+          {job.paras.map((p) => <p class="text-[1.05rem] leading-[1.75] text-muted text-pretty">{p}</p>)}
+        </div>
+        <div class="lg:col-span-5 fade-in stagger-1">
+          <div class="panel p-7 md:p-8 lg:sticky lg:top-28">
+            <p class="h-md mb-2">Direkt bewerben</p>
+            <p class="text-muted text-[0.97rem] leading-relaxed mb-6">Ein paar Zeilen über Dich genügen — ganz unkompliziert per E-Mail oder Telefon. Initiativbewerbungen sind jederzeit willkommen.</p>
+            <div class="flex flex-col gap-2.5">
+              <a href={careerMail} class="btn btn-crimson btn-block"><Icon name="Mail" size={16} strokeWidth={2.2} /> Per E-Mail bewerben</a>
+              <a href={telLink} class="btn btn-outline btn-block"><Icon name="Phone" size={16} strokeWidth={2.2} /> {site.phoneDisplay}</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Warum bei uns -->
+  <section class="bg-white sec border-y border-line">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Warum bei uns</span>
+        <h2 class="display-2 text-balance">Arbeiten, wo man sich wohlfühlt</h2>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
+        {job.warum.map((w, i) => (
+          <div class={`card flex flex-col fade-in stagger-${(i % 3) + 1}`}>
+            <span class={`mb-5 ${i % 2 === 0 ? 'icon-chip' : 'icon-chip icon-chip-sage'}`}><Icon name={w.icon} size={22} strokeWidth={1.7} /></span>
+            <h3 class="h-md mb-2">{w.title}</h3>
+            <p class="text-muted text-[0.95rem] leading-relaxed text-pretty">{w.text}</p>
+          </div>
+        ))}
       </div>
     </div>
   </section>
 
   <!-- Aufgaben / Profil / Bieten -->
-  <section class="bg-white sec border-y border-line">
+  <section class="bg-paper sec">
     <div class="container-px">
       <div class="grid md:grid-cols-3 gap-5 md:gap-6">
         {columns.map((c, i) => (
-          <div class={`card flex flex-col fade-in stagger-${i + 1}`}>
+          <div class={`card-flush p-7 md:p-8 flex flex-col fade-in stagger-${i + 1}`}>
             <span class="icon-chip mb-5"><Icon name={c.icon} size={23} strokeWidth={1.7} /></span>
             <h2 class="h-md mb-4">{c.title}</h2>
             <ul class="space-y-3">
@@ -81,16 +124,35 @@ const columns = [
     </div>
   </section>
 
-  <!-- Bewerben -->
+  <!-- So bewirbst Du Dich -->
+  <section class="bg-cream sec border-y border-line">
+    <div class="container-px">
+      <div class="max-w-2xl mb-12 fade-in">
+        <span class="eyebrow mb-5">Dein Weg zu uns</span>
+        <h2 class="display-2 text-balance">In drei Schritten ins Team</h2>
+      </div>
+      <div class="grid md:grid-cols-3 gap-6 md:gap-8">
+        {job.steps.map((s, i) => (
+          <div class={`relative fade-in stagger-${i + 1}`}>
+            <span class="font-display text-crimson/25 leading-none block mb-3" style="font-size: clamp(2.6rem,5vw,3.4rem); font-variation-settings:'opsz' 144;">{s.n}</span>
+            <h3 class="h-md mb-2">{s.title}</h3>
+            <p class="text-muted text-[0.97rem] leading-relaxed text-pretty">{s.text}</p>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- Bewerben (Dark) -->
   <section class="section-dark on-dark sec relative overflow-hidden">
-    <div class="absolute -right-24 -top-24 w-[26rem] h-[26rem] rounded-full opacity-[0.14] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-crimson-bright)) 0%, transparent 70%);" aria-hidden="true"></div>
+    <div class="absolute -right-24 -top-24 w-[26rem] h-[26rem] rounded-full opacity-[0.16] pointer-events-none" style="background: radial-gradient(circle, rgb(var(--rgb-crimson-bright)) 0%, transparent 70%);" aria-hidden="true"></div>
     <div class="container-px relative">
       <div class="max-w-3xl fade-in">
         <span class="eyebrow eyebrow-light mb-6">Bewerben</span>
-        <h2 class="display-2 text-white text-balance mb-5">Klingt das nach Ihnen? Melden Sie sich.</h2>
+        <h2 class="display-2 text-white text-balance mb-5">Klingt das nach Dir? Dann melde Dich.</h2>
         <p class="text-lg text-white/75 leading-relaxed mb-9 max-w-2xl text-pretty">
-          Schicken Sie uns einfach ein paar Zeilen über sich — gern per E-Mail oder Telefon.
-          Eine Initiativbewerbung ist jederzeit willkommen.
+          Schick uns einfach ein paar Zeilen über Dich — gern per E-Mail oder Telefon.
+          Eine Initiativbewerbung ist jederzeit willkommen, auch wenn gerade keine Stelle ausgeschrieben ist.
         </p>
         <div class="flex flex-col sm:flex-row flex-wrap gap-3">
           <a href={careerMail} class="btn btn-light btn-lg"><Icon name="Mail" size={17} strokeWidth={2} /> Per E-Mail bewerben</a>
@@ -98,7 +160,7 @@ const columns = [
         </div>
         <p class="text-white/45 text-[0.82rem] mt-7 max-w-2xl">
           Bewerberdaten behandeln wir vertraulich nach den Vorgaben der DSGVO.
-          Bitte senden Sie sensible Unterlagen nicht über unverschlüsselte Kanäle.
+          Bitte sende sensible Unterlagen nicht über unverschlüsselte Kanäle.
         </p>
       </div>
     </div>

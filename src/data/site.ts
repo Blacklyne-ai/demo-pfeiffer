@@ -30,11 +30,19 @@ export const site = {
   // Termine ausschließlich nach Vereinbarung (verbatim Altseite).
   hoursNote: 'Termine nach Vereinbarung',
 
-  // Google Maps — Adress-Suche (echte Place-ID / Reviews: Operator-TODO, siehe JUDGEMENT_CALLS).
-  mapsEmbed:
-    'https://www.google.com/maps?q=Physio+Praxis+Pfeiffer+Marktstr.+6/1+71254+Ditzingen&z=16&output=embed',
-  mapsUrl:
-    'https://www.google.com/maps/search/?api=1&query=Physio+Praxis+Pfeiffer+Marktstr.+6%2F1+71254+Ditzingen',
+  // Google Maps — echte Place-Referenz (CID 0xa4364fc320fa80e3, Koordinaten aus
+  // dem verifizierten Google-Eintrag). Präziser Pin statt Adress-Suche.
+  mapsEmbed: 'https://maps.google.com/maps?q=48.8270643,9.0661434&z=16&hl=de&output=embed',
+  mapsUrl: 'https://maps.google.com/?cid=11832732770453061859',
+
+  // Google-Eintrag existiert, aber es liegen KEINE öffentlichen Bewertungen vor
+  // (golocal/11880: 0 Rezensionen). Daher rating: null → kein Stern erfunden (HWG/Fairness).
+  // Verifiziertes Rating/Reviews: Operator-TODO (siehe JUDGEMENT_CALLS).
+  google: {
+    placeUrl: 'https://maps.google.com/?cid=11832732770453061859',
+    rating: null as number | null,
+    reviews: 0,
+  },
 
   // Keine Social-Profile auf der Altseite belegt → kein erfundener Link (siehe JUDGEMENT_CALLS).
   social: {} as { facebook?: string; instagram?: string; linkedin?: string },
